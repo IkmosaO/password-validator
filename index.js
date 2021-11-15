@@ -9,6 +9,10 @@ const validatePassword = (userPassword) => {
   for (let i = 0; i < passArray.length; i++) {
     const currentChar = passArray[i]
 
+    if (specialCharCheck(currentChar)) {
+      hasSpec = true
+      continue
+    }
     if (numberCheck(currentChar)) {
       hasNumb = true
       continue
@@ -19,10 +23,6 @@ const validatePassword = (userPassword) => {
     }
     if (lowerCaseCheck(currentChar)) {
       hasLower = true
-      continue
-    }
-    if (specialCharCheck(currentChar)) {
-      hasSpec = true
       continue
     }
   }
@@ -46,13 +46,12 @@ const lowerCaseCheck = (parameter) => {
 }
 
 const specialCharCheck = (parameter) => {
-  const specChars = '~`!#$%^&*:<>?'
-  let charArray = specChars.split('')
+  const specChars = '~`!#$%^&*+=-[];,/{}|":<>?'
 
-  for (let i = 0; i < charArray.length; i++) {
-    const eachChar = charArray[i]
+  for (let i = 0; i < specChars.length; i++) {
+    const eachChar = specChars[i]
 
-    if (eachChar === parameter) return
+    if (eachChar === parameter) return true
   }
 
   return false
